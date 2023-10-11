@@ -32,9 +32,9 @@ public class HelloController {
             PreparedStatement ps = con.prepareStatement("SELECT login_pseudo, login_mdp FROM login where login_pseudo = ? ");
             ps.setString(1, monID.getText());
             ResultSet resultat = ps.executeQuery();
+            System.out.println(monMDP.getText());
             if(resultat.next()){
-                //if(BCrypt.checkpw(monMDP.getText(), resultat.getString(2))){
-                if(monMDP.getText().equals("toto") ){
+                if(BCrypt.checkpw(monMDP.getText(), resultat.getString(2))){
                     resultat.close();
                     Stage newWindow = new Stage();
                     FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("accueil.fxml"));
