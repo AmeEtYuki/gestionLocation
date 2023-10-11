@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" style="-fx-background-color: black;" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.test3.Erreur">
+   <children>
+      <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Text" />
+      <Text fill="RED" layoutX="228.0" layoutY="74.0" strokeType="OUTSIDE" strokeWidth="0.0" style="-fx-font-size: 25px;" text="Erreur de connection " textAlignment="CENTER" wrappingWidth="155.13671875">
+         <font>
+            <Font size="26.0" />
+         </font>
+      </Text>
+      <Button layoutX="279.0" layoutY="255.0" mnemonicParsing="false" text="Quitter" />
+   </children>
+   <effect>
+      <Blend />
+   </effect>
+</AnchorPane>

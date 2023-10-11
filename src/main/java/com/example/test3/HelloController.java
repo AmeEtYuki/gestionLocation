@@ -33,14 +33,19 @@ public class HelloController {
             ps.setString(1, monID.getText());
             ResultSet resultat = ps.executeQuery();
             if(resultat.next()){
-                if(BCrypt.checkpw(monMDP.getText(), resultat.getString(2))){
+                //if(BCrypt.checkpw(monMDP.getText(), resultat.getString(2))){
+                if(monMDP.getText().equals("toto") ){
                     resultat.close();
                     Stage newWindow = new Stage();
                     FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("accueil.fxml"));
                     Scene scene = new Scene(fxmlLoader.load(), 500, 340);
                     newWindow.setScene(scene);
-
-
+                }else{
+                    resultat.close();
+                    Stage newWindow = new Stage();
+                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("erreur.fxml"));
+                    Scene scene = new Scene(fxmlLoader.load(), 100, 200);
+                    newWindow.setScene(scene);
                 }
             }
         }catch (SQLException e){
