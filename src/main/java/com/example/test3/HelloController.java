@@ -27,7 +27,7 @@ public class HelloController {
     @FXML
     protected void onHelloButtonClick() throws IOException {
         Bdd bdd = new Bdd();
-        Stage tej = HelloApplication.getPtn();
+
         try{
             Connection con = bdd.getConnection();
             PreparedStatement ps = con.prepareStatement("SELECT login_pseudo, login_mdp FROM login where login_pseudo = ? ");
@@ -45,8 +45,8 @@ public class HelloController {
                     newWindow.setScene(scene);
                     newWindow.setTitle("Votre meilleur appli de gestion");
                     newWindow.show();
-
-                    tej.close();
+                    //Stage tej = HelloApplication.getPtn();
+                    //tej.close();
                 }else{
                     resultat.close();
                     Stage newWindow = new Stage();

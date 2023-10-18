@@ -7,6 +7,6 @@
 <AnchorPane prefHeight="557.0" prefWidth="1053.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.test3.Accueil">
    <children>
       <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="test" wrappingWidth="108.5" />
-      <ListView id="Biens" layoutY="43.0" prefHeight="471.0" prefWidth="317.0" />
+      <ListView fx:id="Biens" layoutX="14.0" layoutY="42.0" prefHeight="450.0" prefWidth="358.0" AnchorPane.bottomAnchor="65.0" AnchorPane.topAnchor="42.0" />
    </children>
 </AnchorPane>

@@ -11,11 +11,13 @@ public class HelloApplication extends Application {
     Scene scene;
     static private Stage ptn;
     @Override
-    public void start(Stage stage) throws IOException {
+    public void start(Stage rae) throws IOException {
+        Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 550, 480);
         stage.setTitle("Hello!");
         stage.setScene(scene);
+        stage.onShowingProperty();
         stage.show();
         ptn=stage;
     }
