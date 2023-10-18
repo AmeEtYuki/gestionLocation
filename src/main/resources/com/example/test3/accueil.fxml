@@ -7,6 +7,12 @@
 <AnchorPane prefHeight="557.0" prefWidth="1053.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.test3.Accueil">
    <children>
       <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="test" wrappingWidth="108.5" />
-      <ListView fx:id="Biens" layoutX="14.0" layoutY="42.0" prefHeight="450.0" prefWidth="358.0" AnchorPane.bottomAnchor="65.0" AnchorPane.topAnchor="42.0" />
+      <TableView fx:id="Biens" layoutX="14.0" layoutY="44.0" prefHeight="453.0" prefWidth="277.0">
+        <columns>
+          <TableColumn id="id" prefWidth="75.0" text="id" />
+           <!-- <TableColumn prefWidth="75.0" text="Ville" />
+            <TableColumn prefWidth="75.0" text="Rue" />-->
+        </columns>
+      </TableView>
    </children>
 </AnchorPane>

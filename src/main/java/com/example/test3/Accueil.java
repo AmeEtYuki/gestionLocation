@@ -2,8 +2,10 @@ package com.example.test3;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.Tooltip;
+import javafx.scene.control.cell.PropertyValueFactory;
 
 import java.sql.Connection;
 import java.sql.PreparedStatement;
@@ -13,14 +15,15 @@ import java.util.ArrayList;
 
 public class Accueil {
     @FXML
-    public ListView Biens;
+    public TableView<Biens> Biens;
+    @FXML
+    public TableColumn<Biens, Integer> id;
 
     @FXML
     public void initialize() {
         //chargerBien(0, 10);
         Biens.getItems().addAll(chargerBien(0, 10));
-
-
+        id.setCellValueFactory(new PropertyValueFactory<Biens, Integer>("id"));
     }
     public ArrayList<Biens> chargerBien(int begin, int end) {
         DatabaseAccess bddcredentials = new DatabaseAccess();
