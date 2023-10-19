@@ -66,7 +66,22 @@ public class Meuble {
         }catch (SQLException e){
             throw new RuntimeException(e);
         }
+    }
 
+    public void modMeuble(){
+        DatabaseAccess bdd = new DatabaseAccess();
+        try{
+            Connection co = bdd.getConnection();
+            PreparedStatement ps = co.prepareStatement("UPDATE equipements SET libelle= ?,`id_typeEquipement`= ?,`id_pieces`= ? WHERE  id = ?");
+            ps.setString(1, this.libelle);
+            ps.setInt(2, this.id_typeEquipement);
+            ps.setInt(3, this.id_pieces);
+            ps.setInt(4, this.id);
+            ResultSet rs = ps.executeQuery();
+            System.out.println("L'objet a bien était modifié !");
+        } catch (Exception e) {
+
+        }
     }
 }
 

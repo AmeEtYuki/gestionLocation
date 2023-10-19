@@ -3,11 +3,13 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.test3.Register">
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.test3.Inscription">
    <children>
-      <Button layoutX="274.0" layoutY="291.0" mnemonicParsing="false" text="Button" />
-      <PasswordField layoutX="226.0" layoutY="188.0" />
-      <PasswordField layoutX="226.0" layoutY="226.0" />
-      <TextField layoutX="226.0" layoutY="140.0" />
+      <Label layoutX="263.0" layoutY="30.0" text="Inscrivez-vous" />
+      <Button fx:id="inscription" layoutX="264.0" layoutY="330.0" mnemonicParsing="false" onAction="#onInscription2" text="Inscription" />
+      <TextField id="utilisateur" fx:id="utilisateur" layoutX="226.0" layoutY="152.0" />
+      <Label id="TextUtilisateur" layoutX="225.0" layoutY="102.0" text="Entrer un nom d'utilisateur : " />
+      <Label id="TextMdp" layoutX="227.0" layoutY="214.0" text="Entrer votre mot de passe : " />
+      <TextField id="mdp" fx:id="mdp" layoutX="226.0" layoutY="258.0" />
    </children>
 </AnchorPane>

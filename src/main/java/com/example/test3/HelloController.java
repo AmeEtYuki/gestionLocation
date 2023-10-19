@@ -68,5 +68,16 @@ public class HelloController {
 
         }
 
+
+    }
+
+    @FXML
+    public void onInscription(ActionEvent actionEvent) throws IOException {
+        Stage newWindow = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("register.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600, 400);
+        newWindow.setScene(scene);
+        newWindow.show();
+
     }
 }

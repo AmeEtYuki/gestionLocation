@@ -15,4 +15,5 @@
     <TextField fx:id="monMDP" accessibleRole="PASSWORD_FIELD" />
     <Label fx:id="welcomeText" />
     <Button fx:id="monBoutonConnecter" onAction="#onHelloButtonClick" text="Connexion" />
+    <Button id="inscription" onAction="#onInscription" mnemonicParsing="false" text="Inscription" />
 </VBox>
