@@ -34,10 +34,7 @@ public class HelloController {
             PreparedStatement ps = con.prepareStatement("SELECT login_pseudo, login_mdp FROM login where login_pseudo = ? ");
             ps.setString(1, monID.getText());
             ResultSet resultat = ps.executeQuery();
-            System.out.println(monMDP.getText());
             if(resultat.next()){
-                System.out.println(monMDP.getText() + " et le hash de mort : " + resultat.getString("login_mdp"));
-                System.out.println("Cette merde est : " + BCrypt.checkpw(monMDP.getText(), resultat.getString("login_mdp")));
                 if(BCrypt.checkpw(monMDP.getText(), resultat.getString("login_mdp")) || true){
                     resultat.close();
                     Stage newWindow = new Stage();
@@ -60,7 +57,15 @@ public class HelloController {
             }
             con.close();
         }catch (SQLException e){
-            throw new RuntimeException(e);
+            Stage err = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("erreurBDD.fxml"));
+            Scene scene = new Scene(fxmlLoader.load(), 1069, 500);
+            err.setScene(scene);
+            err.setTitle("Erreur de connexion");
+            err.show();
+            //e.getErrorCode();
+            //throw new RuntimeException(e);
+
         }
 
     }

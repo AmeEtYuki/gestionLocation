@@ -23,6 +23,7 @@ public class Accueil {
     @FXML
     public TableColumn<Biens, Integer> colonneLibre;
     //Lecture des champs de modification
+
     @FXML
     public void initialize() {
         //chargerBien(0, 10);
