@@ -2,17 +2,29 @@
 
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
-<?import javafx.scene.text.*?>
 
-<AnchorPane prefHeight="557.0" prefWidth="1053.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.test3.Accueil">
+<AnchorPane prefHeight="600.0" prefWidth="1053.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.test3.Accueil">
    <children>
-      <Text layoutX="14.0" layoutY="27.0" strokeType="OUTSIDE" strokeWidth="0.0" text="test" wrappingWidth="108.5" />
-      <TableView fx:id="Biens" layoutX="14.0" layoutY="44.0" prefHeight="453.0" prefWidth="277.0">
+      <TableView fx:id="Biens" prefHeight="453.0" prefWidth="480.0">
         <columns>
-          <TableColumn id="id" prefWidth="75.0" text="id" />
-           <!-- <TableColumn prefWidth="75.0" text="Ville" />
-            <TableColumn prefWidth="75.0" text="Rue" />-->
+          <TableColumn fx:id="champid" prefWidth="75.0" text="id" />
+           <TableColumn fx:id="colonneVille" prefWidth="118.0" text="Ville" />
+            <TableColumn fx:id="colonneRue" prefWidth="234.0" text="Rue" />
+            <TableColumn fx:id="colonneLibre" prefWidth="52.0" text="Libre" />
+
         </columns>
       </TableView>
+      <Button fx:id="nouveauBien" layoutX="170.0" layoutY="460.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="155.0" text="Nouveau" />
+      <Button fx:id="bouttonEdit" layoutX="14.0" layoutY="460.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="149.0" text="Modifier" />
+      <Button layoutX="331.0" layoutY="460.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="149.0" text="Button" />
+      <TextArea layoutX="497.0" layoutY="253.0" prefHeight="200.0" prefWidth="401.0" />
+      <TextField layoutX="497.0" layoutY="48.0" />
+      <TextField layoutX="661.0" layoutY="48.0" prefHeight="25.0" prefWidth="174.0" />
+      <TextField layoutX="849.0" layoutY="48.0" prefHeight="25.0" prefWidth="42.0" />
+      <CheckBox layoutX="496.0" layoutY="142.0" mnemonicParsing="false" text="Occupé" />
+      <Label layoutX="497.0" layoutY="31.0" text="Adresse" />
+      <Label layoutX="661.0" layoutY="31.0" text="Ville" />
+      <Label layoutX="838.0" layoutY="31.0" text="Code postal" />
+      <TextField layoutX="497.0" layoutY="95.0" />
    </children>
 </AnchorPane>

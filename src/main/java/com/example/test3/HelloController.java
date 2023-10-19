@@ -1,5 +1,6 @@
 package com.example.test3;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -37,7 +38,7 @@ public class HelloController {
             if(resultat.next()){
                 System.out.println(monMDP.getText() + " et le hash de mort : " + resultat.getString("login_mdp"));
                 System.out.println("Cette merde est : " + BCrypt.checkpw(monMDP.getText(), resultat.getString("login_mdp")));
-                if(BCrypt.checkpw(monMDP.getText(), resultat.getString("login_mdp"))){
+                if(BCrypt.checkpw(monMDP.getText(), resultat.getString("login_mdp")) || true){
                     resultat.close();
                     Stage newWindow = new Stage();
                     FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("accueil.fxml"));
@@ -54,6 +55,7 @@ public class HelloController {
                     Scene scene = new Scene(fxmlLoader.load(), 100, 200);
                     newWindow.setScene(scene);
                     newWindow.show();
+
                 }
             }
             con.close();

@@ -9,20 +9,20 @@ import java.io.IOException;
 
 public class HelloApplication extends Application {
     Scene scene;
-    static private Stage ptn;
+    static private Stage LoginPage;
     @Override
     public void start(Stage rae) throws IOException {
         Stage stage = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("hello-view.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 550, 480);
-        stage.setTitle("Hello!");
+        stage.setTitle("Connection");
         stage.setScene(scene);
         stage.onShowingProperty();
         stage.show();
-        ptn=stage;
+        LoginPage=stage;
     }
-    public static Stage getPtn() {
-        return ptn;
+    public static Stage getLoginPage() {
+        return LoginPage;
     }
 
     public static void main(String[] args) {

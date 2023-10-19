@@ -1,5 +1,7 @@
 package com.example.test3;
 
+import javafx.beans.property.SimpleStringProperty;
+
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -140,9 +142,27 @@ public class Biens {
         }
     }
 
+    //créé une fonction pour modifier les informations du bien (description, adresse, ville, code postal, ...)
+
+
     // rajouter dans biens, une méthode permettant de charger tout les meubles d'un bien spécifique.
 
     public void chargerPieces(){
+        DatabaseAccess bdd = new DatabaseAccess();
+
+        try {
+            Connection co = bdd.getConnection();
+            PreparedStatement ps = co.prepareStatement("SELECT * from pieces WHERE id_biens = ?");
+            ps.setInt(1, this.id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                pieces.add(new Piece(rs.getInt("id"), rs.getFloat("surface"), rs.getString("libelle")));
+            }
+        } catch (SQLException e) {
+            throw new RuntimeException(e);
+        }
+    }
+    public void chargernbPieces() {
         DatabaseAccess bdd = new DatabaseAccess();
 
         try {
