@@ -11,9 +11,9 @@ public class Bdd {
     private int port;
     private String database;
     public Bdd() {
-        this.user = "full";
-        this.password = "flemme";
-        this.host = "172.19.0.100";
+        this.user = "gestionLocation";
+        this.password = "Zhvh56774TiB";
+        this.host = "192.168.1.124";
         this.port = 3306;
         this.database = "ar";
     }

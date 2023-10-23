@@ -11,9 +11,9 @@ public class DatabaseAccess {
     private int port;
     private String database;
     public DatabaseAccess() {
-        this.user = "full";
-        this.password = "flemme";
-        this.host = "172.19.0.100";
+        this.user = "gestionLocation";
+        this.password = "Zhvh56774TiB";
+        this.host = "172.16.0.20";
         this.port = 3306;
         this.database = "ar";
     }

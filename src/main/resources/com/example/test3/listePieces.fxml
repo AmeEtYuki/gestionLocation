@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/16" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.test3.ListePieces">
+   <children>
+      <HBox layoutY="1.0" />
+      <TableView fx:id="listePieces" layoutX="8.0" layoutY="14.0" prefHeight="384.0" prefWidth="251.0">
+        <columns>
+          <TableColumn prefWidth="175.0" text="Nom piece" />
+          <TableColumn minWidth="9.0" prefWidth="75.0" text="nbMeubles" />
+        </columns>
+      </TableView>
+      <TableView fx:id="listeMeubles" layoutX="344.0" layoutY="14.0" prefHeight="384.0" prefWidth="242.0">
+        <columns>
+          <TableColumn prefWidth="168.0" text="Meuble" />
+          <TableColumn prefWidth="73.0" text="C2" />
+        </columns>
+      </TableView>
+   </children>
+</AnchorPane>

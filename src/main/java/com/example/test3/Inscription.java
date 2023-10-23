@@ -42,6 +42,7 @@ public class Inscription {
             ps.setString(1, utilisateur.getText());
             ps.setString(2, crypt);
             boolean resultat = ps.execute();
+            HelloController.afficherAcceuil();
             /*if(resultat.next()){
                 if(BCrypt.checkpw(crypt, resultat.getString(2))){
                     resultat.close();
@@ -51,11 +52,12 @@ public class Inscription {
                     newWindow.setScene(scene);
                     newWindow.show();
                 }*/
-            Stage newWindow = new Stage();
+            /*Stage newWindow = new Stage();
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("accueil.fxml"));
             Scene scene = new Scene(fxmlLoader.load(), 500, 340);
             newWindow.setScene(scene);
-            newWindow.show();
+            newWindow.show();*/
+
 
 
 

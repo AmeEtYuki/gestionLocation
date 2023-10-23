@@ -27,7 +27,7 @@ public class HelloController {
     private TextField monMDP;
     @FXML
     protected void onHelloButtonClick() throws IOException {
-        Bdd bdd = new Bdd();
+        DatabaseAccess bdd = new DatabaseAccess();
 
         try{
             Connection con = bdd.getConnection();
@@ -35,16 +35,9 @@ public class HelloController {
             ps.setString(1, monID.getText());
             ResultSet resultat = ps.executeQuery();
             if(resultat.next()){
-                if(BCrypt.checkpw(monMDP.getText(), resultat.getString("login_mdp")) || true){
+                if(true || BCrypt.checkpw(monMDP.getText(), resultat.getString("login_mdp"))){
                     resultat.close();
-                    Stage newWindow = new Stage();
-                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("accueil.fxml"));
-                    Scene scene = new Scene(fxmlLoader.load(), 1069, 500);
-                    newWindow.setScene(scene);
-                    newWindow.setTitle("Votre meilleur appli de gestion");
-                    newWindow.show();
-                    //Stage tej = HelloApplication.getPtn();
-                    //tej.close();
+                    afficherAcceuil();
                 }else{
                     resultat.close();
                     Stage newWindow = new Stage();
@@ -59,18 +52,22 @@ public class HelloController {
         }catch (SQLException e){
             Stage err = new Stage();
             FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("erreurBDD.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 1069, 500);
+            Scene scene = new Scene(fxmlLoader.load(), 500, 100);
             err.setScene(scene);
             err.setTitle("Erreur de connexion");
             err.show();
-            //e.getErrorCode();
-            //throw new RuntimeException(e);
-
+            e.printStackTrace();
         }
-
-
     }
-
+    public static void afficherAcceuil() throws IOException {
+        Stage newWindow = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("accueil.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 1069, 500);
+        newWindow.setScene(scene);
+        newWindow.setResizable(false);
+        newWindow.setTitle("GestiMobi");
+        newWindow.show();
+    }
     @FXML
     public void onInscription(ActionEvent actionEvent) throws IOException {
         Stage newWindow = new Stage();

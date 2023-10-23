@@ -1,11 +1,8 @@
 package com.example.test3;
 
-import javafx.beans.property.SimpleStringProperty;
+import javafx.scene.chart.PieChart;
 
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
-import java.sql.SQLException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Scanner;
@@ -16,12 +13,12 @@ public class Biens {
     private String cp;
     private String ville;
     private float prix;
-    private int anneeConstru;
+    private Date anneeConstru;
     private String description;
     private boolean libre;
-    Collection<Piece> pieces = new ArrayList<>();
-    Collection<Meuble> meubles = new ArrayList<>();
-    public Biens(int id, String rue, String cp, String ville, float prix, int anneeConstru, String description, boolean libre) {
+    ArrayList<Piece> pieces = new ArrayList<>();
+    ArrayList<Meuble> meubles = new ArrayList<>();
+    public Biens(int id, String rue, String cp, String ville, float prix, Date anneeConstru, String description, boolean libre) {
         this.id = id;
         this.rue = rue;
         this.cp = cp;
@@ -68,11 +65,11 @@ public class Biens {
         this.prix = prix;
     }
 
-    public int getAnneeConstru() {
+    public Date getAnneeConstru() {
         return anneeConstru;
     }
 
-    public void setAnneeConstru(int anneeConstru) {
+    public void setAnneeConstru(Date anneeConstru) {
         this.anneeConstru = anneeConstru;
     }
 
@@ -82,6 +79,22 @@ public class Biens {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public ArrayList<Piece> getPieces() {
+        return pieces;
+    }
+
+    public void setPieces(ArrayList<Piece> pieces) {
+        this.pieces = pieces;
+    }
+
+    public Collection<Meuble> getMeubles() {
+        return meubles;
+    }
+
+    public void setMeubles(ArrayList<Meuble> meubles) {
+        this.meubles = meubles;
     }
 
     public boolean isLibre() {
@@ -94,7 +107,26 @@ public class Biens {
 
     //Ajout de meubles + vérification
 
-
+    public void enregistrerModifBien() {
+        //UPDATE `biens` SET `id`='[value-1]',`rue`='[value-2]',`cp`='[value-3]',`ville`='[value-4]',`prix`='[value-5]',`anneeConstru`='[value-6]',`description`='[value-7]',`libre`='[value-8]' WHERE `id`=?
+        String sql = "UPDATE `biens` SET `rue`=?,`cp`=?,`ville`=?,`prix`=?,`anneeConstru`=?,`description`=?,`libre`=? WHERE `id`=?";
+        try {
+            Connection c = new DatabaseAccess().getConnection();
+            PreparedStatement p = c.prepareStatement(sql);
+            p.setString(1, this.rue);
+            p.setString(2, this.cp);
+            p.setString(3, this.ville);
+            p.setFloat(4, this.prix);
+            p.setDate(5, this.anneeConstru);
+            p.setString(6, this.description);
+            p.setBoolean(7, this.libre);
+            p.setInt(8, this.id);
+            p.executeUpdate();
+            c.close();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
     public void nouvellePiece(String libelle, float surface) {
         try {
             Connection c = new DatabaseAccess().getConnection();
@@ -108,6 +140,7 @@ public class Biens {
             //prest.executeUpdate(query, PreparedStatement.RETURN_GENERATED_KEYS); Throws an error
             //prest.executeQuery(); Throws an error
             ResultSet rs = p.getGeneratedKeys();
+            c.close();
             if(rs.next())
             {
                 int last_inserted_id = rs.getInt(1);
@@ -134,6 +167,7 @@ public class Biens {
             p.executeUpdate();
             //Je retire la pièce de la liste.
             pieces.remove(p);
+            c.close();
 
 
 
@@ -163,31 +197,21 @@ public class Biens {
         }
     }
     public void chargernbPieces() {
-        DatabaseAccess bdd = new DatabaseAccess();
+        chargerPieces();
 
-        try {
-            Connection co = bdd.getConnection();
-            PreparedStatement ps = co.prepareStatement("SELECT * from pieces WHERE id_biens = ?");
-            ps.setInt(1, this.id);
-            ResultSet rs = ps.executeQuery();
-            while (rs.next()) {
-                pieces.add(new Piece(rs.getInt("id"), rs.getFloat("surface"), rs.getString("libelle")));
-            }
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
     }
     public void chargerMeubles() {
         DatabaseAccess bdd = new DatabaseAccess();
         try{
             Connection co = bdd.getConnection();
-            PreparedStatement ps = co.prepareStatement("SELECT * from equipement WHERE id_typeEquipement= ?");
+            PreparedStatement ps = co.prepareStatement("SELECT * from equipements WHERE id_typeEquipement= ?");
             ps.setInt(1, this.id);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 //public Meuble(int id, String type, String libelle, int id_typeEquipement, int id_pieces)
                 meubles.add(new Meuble(rs.getInt("id"), rs.getString("libelle"), rs.getString("id_pieces"), rs.getInt("id_typeEquipement"), rs.getInt("id_pieces")));
             }
+            co.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }

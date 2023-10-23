@@ -6,10 +6,11 @@ import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 public class ErreurBDD {
-
+    @FXML
+    Button ok;
     @FXML
     public void onOkClick() {
-        Stage thisWin = (Stage) Stage.getWindows();
+        Stage thisWin = (Stage) ok.getScene().getWindow();
         thisWin.close();
     }
 }

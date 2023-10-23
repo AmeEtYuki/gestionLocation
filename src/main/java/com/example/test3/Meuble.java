@@ -45,12 +45,12 @@ public class Meuble {
             PreparedStatement ps = co.prepareStatement("DELETE FROM 'equipements' WHERE 'id' = ?");
             ps.setInt(1, this.id);
             ps.executeQuery();
+            co.close();
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-
-
     }
+
 
     public void addMeuble() {
         DatabaseAccess bdd = new DatabaseAccess();
