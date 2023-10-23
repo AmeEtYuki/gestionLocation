@@ -34,5 +34,9 @@ public class Piece {
     public void setLibelle(String libelle) {
         this.libelle = libelle;
     }
+    @Override
+    public String toString() {
+        return this.libelle+" surface : "+this.surface;
+    }
 }
 

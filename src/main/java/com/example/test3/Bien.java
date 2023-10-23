@@ -1,13 +1,11 @@
 package com.example.test3;
 
-import javafx.scene.chart.PieChart;
-
 import java.sql.*;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Scanner;
 
-public class Biens {
+public class Bien {
     private int id;
     private String rue;
     private String cp;
@@ -17,8 +15,8 @@ public class Biens {
     private String description;
     private boolean libre;
     ArrayList<Piece> pieces = new ArrayList<>();
-    ArrayList<Meuble> meubles = new ArrayList<>();
-    public Biens(int id, String rue, String cp, String ville, float prix, Date anneeConstru, String description, boolean libre) {
+    ArrayList<Equipement> equipements = new ArrayList<>();
+    public Bien(int id, String rue, String cp, String ville, float prix, Date anneeConstru, String description, boolean libre) {
         this.id = id;
         this.rue = rue;
         this.cp = cp;
@@ -89,12 +87,12 @@ public class Biens {
         this.pieces = pieces;
     }
 
-    public Collection<Meuble> getMeubles() {
-        return meubles;
+    public Collection<Equipement> getEquipements() {
+        return equipements;
     }
 
-    public void setMeubles(ArrayList<Meuble> meubles) {
-        this.meubles = meubles;
+    public void setEquipements(ArrayList<Equipement> equipements) {
+        this.equipements = equipements;
     }
 
     public boolean isLibre() {
@@ -208,8 +206,8 @@ public class Biens {
             ps.setInt(1, this.id);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
-                //public Meuble(int id, String type, String libelle, int id_typeEquipement, int id_pieces)
-                meubles.add(new Meuble(rs.getInt("id"), rs.getString("libelle"), rs.getString("id_pieces"), rs.getInt("id_typeEquipement"), rs.getInt("id_pieces")));
+                //public Equipement(int id, String type, String libelle, int id_typeEquipement, int id_pieces)
+                equipements.add(new Equipement(rs.getInt("id"), rs.getString("libelle"), rs.getString("id_pieces"), rs.getInt("id_typeEquipement"), rs.getInt("id_pieces")));
             }
             co.close();
         } catch (SQLException e) {
@@ -223,7 +221,7 @@ public class Biens {
         return
                 "(" + id + ")'" + rue + " | " + ville +
                 ", pieces :" + pieces.size() +
-                ", meubles :" + meubles.size() +
+                ", meubles :" + equipements.size() +
                 '}';
     }
 }

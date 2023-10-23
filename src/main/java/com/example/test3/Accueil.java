@@ -10,20 +10,21 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.sql.*;
 import java.util.ArrayList;
-import java.util.Stack;
 
 public class Accueil {
     @FXML
-    public TableView<Biens> Biens;
+    public TableView<Bien> Biens;
     @FXML
-    public TableColumn<Biens, Integer> champid;
+    public TableColumn<Bien, Integer> champid;
     @FXML
-    public TableColumn<Biens, String> colonneVille;
+    public TableColumn<Bien, String> colonneVille;
     @FXML
-    public TableColumn<Biens, String> colonneRue;
+    public TableColumn<Bien, String> colonneRue;
     @FXML
-    public TableColumn<Biens, Integer> colonneLibre;
+    public TableColumn<Bien, Integer> colonneLibre;
     //Lecture des champs de modification
+
+    private static Bien leBienChoisis;
     @FXML
     public TextField txtAdrr;
     @FXML TextField txtVille;
@@ -44,10 +45,10 @@ public class Accueil {
         HelloApplication.getLoginPage().close();
         //chargerBien(0, 10);
         Biens.getItems().addAll(chargerBien(0, 10));
-        champid.setCellValueFactory(new PropertyValueFactory<Biens, Integer>("id"));
-        colonneLibre.setCellValueFactory(new PropertyValueFactory<Biens, Integer>("libre"));
-        colonneRue.setCellValueFactory(new PropertyValueFactory<Biens, String>("rue"));
-        colonneVille.setCellValueFactory(new PropertyValueFactory<Biens, String>("ville"));
+        champid.setCellValueFactory(new PropertyValueFactory<Bien, Integer>("id"));
+        colonneLibre.setCellValueFactory(new PropertyValueFactory<Bien, Integer>("libre"));
+        colonneRue.setCellValueFactory(new PropertyValueFactory<Bien, String>("rue"));
+        colonneVille.setCellValueFactory(new PropertyValueFactory<Bien, String>("ville"));
         //Déverouillage des champs par défaut.
         toggleTxtFields(true);
     }
@@ -64,7 +65,7 @@ public class Accueil {
 
     @FXML
     public void voirBien() {
-        Biens leBien = Biens.getSelectionModel().getSelectedItem();
+        Bien leBien = Biens.getSelectionModel().getSelectedItem();
         leBien.chargerPieces();
         leBien.chargerMeubles();
         //champid.setText(String.valueOf(leBien.getId()));
@@ -75,6 +76,7 @@ public class Accueil {
         boolOccupied.setSelected(leBien.isLibre());
         txtAnnee.setValue(leBien.getAnneeConstru().toLocalDate());
         txtPrix.setText(String.valueOf(leBien.getPrix()));
+        leBienChoisis = Biens.getSelectionModel().getSelectedItem();
     }
     @FXML
     public void modifierBien() {
@@ -85,7 +87,7 @@ public class Accueil {
             bouttonEdit.setText("Sauver");
         } else if (action.equalsIgnoreCase("Sauver")) {
             bouttonEdit.setText("Modifier");
-            Biens leBien = Biens.getSelectionModel().getSelectedItem();
+            Bien leBien = Biens.getSelectionModel().getSelectedItem();
             leBien.setAnneeConstru(Date.valueOf(txtAnnee.getValue()));
             leBien.setCp(txtCP.getText());
             leBien.setDescription(txtDesc.getText());
@@ -94,11 +96,8 @@ public class Accueil {
             leBien.setVille(txtVille.getText());
             leBien.setPrix(Float.parseFloat(txtPrix.getText()));
             leBien.enregistrerModifBien();
-            //Biens.getItems().remove(leBien);
-            //Biens.getItems().add(leBien);
             Biens.refresh();
             toggleTxtFields(true);
-
         }
     }
 
@@ -107,16 +106,17 @@ public class Accueil {
         Stage newWindow = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("listePieces.fxml"));
         Scene scene = new Scene(fxmlLoader.load(), 700, 400);
-        ListePieces l = fxmlLoader.getController();
-        Biens fuckyou = Biens.getSelectionModel().getSelectedItem();
-        l.setLeBien(fuckyou);
         newWindow.setScene(scene);
         newWindow.show();
+
+    }
+    public static Bien getBienChoisis() {
+        return leBienChoisis;
     }
 
-    public ArrayList<Biens> chargerBien(int begin, int end) {
+    public ArrayList<Bien> chargerBien(int begin, int end) {
         DatabaseAccess bddcredentials = new DatabaseAccess();
-        ArrayList<Biens> lBiens = new ArrayList<>();
+        ArrayList<Bien> lBiens = new ArrayList<>();
         try {
             Connection connection = bddcredentials.getConnection();
             //SELECT *, count(pieces.id) as nbPieces FROM `biens` INNER JOIN pieces ON pieces.id_biens = biens.id GROUP BY biens.id LIMIT 0, 10
@@ -127,7 +127,7 @@ public class Accueil {
 
             while (rs.next()) {
                 //public biens(int id, String rue, String cp, String ville, float prix, int anneeConstru, String description, boolean libre)
-                Biens bienEnChargement = new Biens(rs.getInt("id") , rs.getString("rue"), rs.getString("cp"), rs.getString("Ville"),
+                Bien bienEnChargement = new Bien(rs.getInt("id") , rs.getString("rue"), rs.getString("cp"), rs.getString("Ville"),
                         rs.getFloat("prix"), rs.getDate("anneeConstru"), rs.getString("Description"), rs.getBoolean("libre"));
                 //System.out.println(bienEnChargement.getId());
                 lBiens.add(bienEnChargement);
@@ -138,7 +138,7 @@ public class Accueil {
         } catch (SQLException e) {
             throw new RuntimeException(e);
         }
-        for (Biens b: lBiens) {
+        for (Bien b: lBiens) {
             System.out.println("Oui");
             System.out.println(b.getId());
         }

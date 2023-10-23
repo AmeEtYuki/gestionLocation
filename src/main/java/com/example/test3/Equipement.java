@@ -5,18 +5,22 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 
-public class Meuble {
+public class Equipement {
     int id;
     int id_typeEquipement;
     int id_pieces;
     String type, libelle;
 
-    public Meuble(int id, String type, String libelle, int id_typeEquipement, int id_pieces ) {
+    public Equipement(int id, String type, String libelle, int id_typeEquipement, int id_pieces ) {
         this.id = id;
         this.type = type;
         this.libelle = libelle;
         this.id_typeEquipement = id_typeEquipement;
         this.id_pieces = id_pieces;
+    }
+
+    public int getId_pieces() {
+        return id_pieces;
     }
 
     public int getId() {
