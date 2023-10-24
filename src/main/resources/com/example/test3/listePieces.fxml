@@ -3,10 +3,19 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.test3.ListePieces">
+<AnchorPane prefHeight="449.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.test3.ListePieces">
    <children>
       <HBox layoutY="1.0" />
       <ListView fx:id="listePieces" layoutX="14.0" layoutY="14.0" onMouseClicked="#choixPiece" prefHeight="384.0" prefWidth="321.0" />
-      <ListView fx:id="listeMeubles" layoutX="352.0" layoutY="14.0" onMouseClicked="#choixPiece" prefHeight="384.0" prefWidth="234.0" />
+      <ListView fx:id="listeMeubles" layoutX="352.0" layoutY="14.0" prefHeight="384.0" prefWidth="234.0" />
+      <Button fx:id="ajouterPiece" layoutX="86.0" layoutY="398.0" mnemonicParsing="false" onAction="#ajouterPiece" prefHeight="25.0" prefWidth="99.0" text="Ajouter Piece" />
+      <Button fx:id="retirerPieceBoutton" layoutX="14.0" layoutY="398.0" mnemonicParsing="false" onAction="#retirerPiece" text="Supprimer" />
+      <Button fx:id="retirerEquipementBoutton" layoutX="444.0" layoutY="398.0" mnemonicParsing="false" onAction="#retirerMeuble" prefHeight="25.0" prefWidth="83.0" text="Supprimer" />
+      <Button fx:id="ajouterEquipementBoutton" layoutX="527.0" layoutY="398.0" mnemonicParsing="false" onAction="#ajouterEquipement" text="Ajouter " />
+      <Button layoutX="185.0" layoutY="398.0" mnemonicParsing="false" onAction="#onModifPiece" prefHeight="25.0" prefWidth="72.0" text="Modifier" />
+      <Label layoutX="356.0" text="Equipements" />
+      <Label layoutX="18.0" text="Pièces" />
+      <Button layoutX="257.0" layoutY="398.0" mnemonicParsing="false" onAction="#onRefresh" prefHeight="25.0" prefWidth="72.0" text="Rafraichir" />
+      <Button layoutX="360.0" layoutY="398.0" mnemonicParsing="false" onAction="#onRefresh2" prefHeight="25.0" prefWidth="83.0" text="Rafraichir" />
    </children>
 </AnchorPane>

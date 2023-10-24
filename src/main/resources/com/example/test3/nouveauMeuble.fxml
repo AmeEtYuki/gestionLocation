@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="nouvEquip" prefHeight="91.0" prefWidth="392.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.test3.NouveauMeuble">
+   <children>
+      <TextField fx:id="nouvMeubleLab" layoutX="14.0" layoutY="14.0" prefHeight="25.0" prefWidth="348.0" />
+      <Button fx:id="nouvMeubleConfirm" layoutX="63.0" layoutY="46.0" mnemonicParsing="false" onAction="#onConfirmation" text="Confirmer" />
+      <Button fx:id="nouvMeubleCancel" layoutX="275.0" layoutY="46.0" mnemonicParsing="false" text="Annuler" />
+   </children>
+</AnchorPane>

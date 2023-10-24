@@ -5,6 +5,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
+import javafx.scene.image.ImageView;
 import javafx.stage.Stage;
 
 import java.io.IOException;
@@ -33,9 +35,12 @@ public class Accueil {
     @FXML Button bouttonEdit;
     @FXML TextField txtPrix;
     @FXML TextArea txtDesc;
+    @FXML Button gererPieces;
+    @FXML
+    ImageView imageBien;
     //@FXML TextField
 
-
+    private static int act,max;
 
     @FXML CheckBox boolOccupied;
 
@@ -67,7 +72,7 @@ public class Accueil {
     public void voirBien() {
         Bien leBien = Biens.getSelectionModel().getSelectedItem();
         leBien.chargerPieces();
-        leBien.chargerMeubles();
+        //leBien.chargerMeubles();
         //champid.setText(String.valueOf(leBien.getId()));
         txtAdrr.setText(leBien.getRue());
         txtVille.setText(leBien.getVille());
@@ -77,6 +82,8 @@ public class Accueil {
         txtAnnee.setValue(leBien.getAnneeConstru().toLocalDate());
         txtPrix.setText(String.valueOf(leBien.getPrix()));
         leBienChoisis = Biens.getSelectionModel().getSelectedItem();
+        gererPieces.setDisable(false);
+        bouttonEdit.setDisable(false);
     }
     @FXML
     public void modifierBien() {
@@ -105,14 +112,17 @@ public class Accueil {
     public void voirPieces() throws IOException {
         Stage newWindow = new Stage();
         FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("listePieces.fxml"));
-        Scene scene = new Scene(fxmlLoader.load(), 700, 400);
+        Scene scene = new Scene(fxmlLoader.load(), 600, 500);
         newWindow.setScene(scene);
+        newWindow.setResizable(false);
         newWindow.show();
 
     }
     public static Bien getBienChoisis() {
         return leBienChoisis;
     }
+
+
 
     public ArrayList<Bien> chargerBien(int begin, int end) {
         DatabaseAccess bddcredentials = new DatabaseAccess();

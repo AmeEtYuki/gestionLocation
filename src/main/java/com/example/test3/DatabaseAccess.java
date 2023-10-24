@@ -13,7 +13,7 @@ public class DatabaseAccess {
     public DatabaseAccess() {
         this.user = "gestionLocation";
         this.password = "Zhvh56774TiB";
-        this.host = "172.16.0.20";
+        this.host = "play4.varin.ovh";
         this.port = 3306;
         this.database = "ar";
     }

@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
 
 <AnchorPane prefHeight="600.0" prefWidth="1053.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.example.test3.Accueil">
@@ -14,19 +15,20 @@
 
         </columns>
       </TableView>
-      <Button fx:id="nouveauBien" layoutX="750.0" layoutY="154.0" mnemonicParsing="false" onAction="#voirPieces" prefHeight="42.0" prefWidth="155.0" text="Nouveau bien" />
-      <Button fx:id="bouttonEdit" layoutX="753.0" layoutY="206.0" mnemonicParsing="false" onAction="#modifierBien" prefHeight="42.0" prefWidth="149.0" text="Modifier" />
-      <Button layoutX="598.0" layoutY="206.0" mnemonicParsing="false" onAction="#voirPieces" prefHeight="42.0" prefWidth="149.0" text="Géré Pieces et meubles" />
-      <TextArea fx:id="txtDesc" layoutX="497.0" layoutY="253.0" prefHeight="200.0" prefWidth="401.0" />
+      <Button fx:id="nouveauBien" layoutX="490.0" layoutY="206.0" mnemonicParsing="false" onAction="#voirPieces" prefHeight="42.0" prefWidth="103.0" text="Nouveau bien" />
+      <Button fx:id="bouttonEdit" disable="true" layoutX="490.0" layoutY="253.0" mnemonicParsing="false" onAction="#modifierBien" prefHeight="42.0" prefWidth="103.0" text="Modifier" />
+      <Button fx:id="gererPieces" disable="true" layoutX="490.0" layoutY="300.0" mnemonicParsing="false" onAction="#voirPieces" prefHeight="42.0" prefWidth="103.0" text="Pieces" />
+      <TextArea fx:id="txtDesc" layoutX="598.0" layoutY="128.0" prefHeight="73.0" prefWidth="297.0" />
       <TextField fx:id="txtAdrr" layoutX="497.0" layoutY="48.0" prefHeight="25.0" prefWidth="201.0" />
       <TextField fx:id="txtVille" layoutX="707.0" layoutY="48.0" prefHeight="25.0" prefWidth="128.0" />
       <TextField fx:id="txtCP" layoutX="849.0" layoutY="48.0" prefHeight="25.0" prefWidth="42.0" />
-      <CheckBox fx:id="boolOccupied" layoutX="496.0" layoutY="158.0" mnemonicParsing="false" text="Occupé" />
+      <CheckBox fx:id="boolOccupied" layoutX="496.0" layoutY="111.0" mnemonicParsing="false" text="Occupé" />
       <Label layoutX="497.0" layoutY="31.0" text="Adresse" />
       <Label layoutX="707.0" layoutY="31.0" text="Ville" />
       <Label layoutX="838.0" layoutY="31.0" text="Code postal" />
       <Label layoutX="496.0" layoutY="90.0" text="Année construction" />
       <DatePicker fx:id="txtAnnee" layoutX="604.0" layoutY="86.0" />
       <TextField fx:id="txtPrix" layoutX="796.0" layoutY="86.0" prefHeight="25.0" prefWidth="96.0" />
+      <ImageView fx:id="imageBien" fitHeight="210.0" fitWidth="297.0" layoutX="598.0" layoutY="206.0" pickOnBounds="true" preserveRatio="true" />
    </children>
 </AnchorPane>

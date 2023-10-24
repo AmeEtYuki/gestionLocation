@@ -26,6 +26,16 @@ public class Bien {
         this.description = description;
         this.libre = libre;
     }
+    public Bien(String rue, String cp, String ville, float prix, Date anneeConstru, String description, boolean libre) {
+        this.rue = rue;
+        this.cp = cp;
+        this.ville = ville;
+        this.prix = prix;
+        this.anneeConstru = anneeConstru;
+        this.description = description;
+        this.libre = libre;
+        nouveauBien();
+    }
 
     public String getRue() {
         return rue;
@@ -125,61 +135,88 @@ public class Bien {
             e.printStackTrace();
         }
     }
-    public void nouvellePiece(String libelle, float surface) {
+    public void nouveauBien() {
+        //new String[]{"id"} pour récup le dernier ID généré, à rajouter après la requête
+        //PreparedStagement p = ....(sql,new String[]{"id"})
+        //Et faudra inséré l'id dans la classe dcp
+        try{
+            Connection c = new DatabaseAccess().getConnection();
+            PreparedStatement p = c.prepareStatement("INSERT into biens (rue, cp, ville, prix, anneeConstru, description, libre) values(?, ?, ?, ?, ?, ?, ?)", new String[]{"id"});
+            p.setString(1, this.rue);
+            p.setString(2, this.cp);
+            p.setString(3, this.ville);
+            p.setFloat(4, this.prix);
+            p.setDate(5, this.anneeConstru);
+            p.setString(6, this.description);
+            p.setBoolean(7, this.libre);
+            p.executeUpdate();
+            ResultSet rs = p.getGeneratedKeys();
+            this.id = rs.getInt(1);
+            c.close();
+
+        }catch(SQLException e){
+            e.printStackTrace();
+        }
+
+    }
+    public void nouvellePiece(String libelle, float surface)
+   {
         try {
             Connection c = new DatabaseAccess().getConnection();
             Scanner s = new Scanner(System.in);
             //INSERT INTO `pieces` (`id`, `surface`, `libelle`, `id_biens`) VALUES (NULL, '30', 'Cuisine', '101');
-            PreparedStatement p = c.prepareStatement("INSERT INTO `pieces` (`id`, `surface`, `libelle`, `id_biens`) VALUES (NULL, ?, ?, ?)");
+            PreparedStatement p = c.prepareStatement("INSERT INTO `pieces` (`id`, `surface`, `libelle`, `id_biens`) VALUES (NULL, ?, ?, ?)", new String[]{"id"});
             p.setFloat(1, surface);
             p.setString(2, libelle);
             p.setInt(3, this.id);
+            //p.RETURN_GENERATED_KEYS;
             p.executeUpdate();
             //prest.executeUpdate(query, PreparedStatement.RETURN_GENERATED_KEYS); Throws an error
             //prest.executeQuery(); Throws an error
             ResultSet rs = p.getGeneratedKeys();
-            c.close();
+
             if(rs.next())
             {
                 int last_inserted_id = rs.getInt(1);
+                System.out.println(last_inserted_id);
                 //création de l'entité dans la liste des pieces du bien.
                 pieces.add(new Piece(last_inserted_id, surface, libelle));
             }
 
-
+            c.close();
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
+
+
 
     public void supprimerPiece(Piece pi) {
         try {
             Connection c = new DatabaseAccess().getConnection();
             //suppression des meubles lié à la pièce puis suppression de la pièce
-            PreparedStatement p2 = c.prepareStatement("DELETE FROM 'equipements' WHERE 'id_pieces' = ?");
+            PreparedStatement p2 = c.prepareStatement("DELETE FROM equipements WHERE `id_pieces` = ?");
             p2.setInt(1, pi.getId());
             p2.executeUpdate();
             //Suppression de la pièce elle même
-            PreparedStatement p = c.prepareStatement("DELETE FROM 'pieces' WHERE 'id' = ?");
+            PreparedStatement p = c.prepareStatement("DELETE FROM pieces WHERE `id` = ?");
             p.setFloat(1, pi.getId());
             p.executeUpdate();
             //Je retire la pièce de la liste.
             pieces.remove(p);
             c.close();
-
-
-
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
 
+    //j'vais retirer les truc en rapport avec Equipement ici, comme c'est référé par pièce dans la bdd, après j'aurais
+    //pus faire une fonction qui charge tout les meubles de chaques pièces mais ça aurais fait un carnage XD
     //créé une fonction pour modifier les informations du bien (description, adresse, ville, code postal, ...)
-
-
-    // rajouter dans biens, une méthode permettant de charger tout les meubles d'un bien spécifique.
+    //rajouter dans biens, une méthode permettant de charger tout les meubles d'un bien spécifique.
 
     public void chargerPieces(){
+        pieces.clear();
         DatabaseAccess bdd = new DatabaseAccess();
 
         try {
@@ -191,18 +228,17 @@ public class Bien {
                 pieces.add(new Piece(rs.getInt("id"), rs.getFloat("surface"), rs.getString("libelle")));
             }
         } catch (SQLException e) {
-            throw new RuntimeException(e);
+            e.printStackTrace();
         }
     }
     public void chargernbPieces() {
         chargerPieces();
-
     }
-    public void chargerMeubles() {
+    /*public void chargerMeubles(int piece) {
         DatabaseAccess bdd = new DatabaseAccess();
         try{
             Connection co = bdd.getConnection();
-            PreparedStatement ps = co.prepareStatement("SELECT * from equipements WHERE id_typeEquipement= ?");
+            PreparedStatement ps = co.prepareStatement("SELECT * from equipements WHERE id_pieces=?");
             ps.setInt(1, this.id);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
@@ -214,7 +250,7 @@ public class Bien {
             throw new RuntimeException(e);
         }
 
-    }
+    }*/
 
     @Override
     public String toString() {
