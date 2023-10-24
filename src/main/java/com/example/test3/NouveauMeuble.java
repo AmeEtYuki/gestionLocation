@@ -24,8 +24,7 @@ public class NouveauMeuble {
     @FXML
     public void initialize() {
         leBien = Accueil.getBienChoisis();
-        laPiece = ListePieces.getPiece(); //ptn ça marche pas wtf tu dois faire un get sur quoi ? Pour avoir la pièce
-        // sur laquel on travail, mais j'suis un peu con j'ai zappé de mettre la fonction en statique
+        laPiece = ListePieces.getPiece();
     }
 
     @FXML

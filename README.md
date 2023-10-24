@@ -12,6 +12,9 @@ Project JAVA FX Sur la gestion de la location.
 ⌛En cours
 ❌Bloqué à cause d'autre chose
 
+L'application n'est pas finie, il est possible que certaines fonctions ne fonctionnent pas ou n'existent simplement pas.
+
+
 Liens utiles :
 * Pour voir si la base de données est opérationnelle: https://status.varin.ovh/
 * Pour accéder au panneau de gestion de la base de données : https://test.varin.ovh/phpmyadmin<

@@ -1,5 +1,6 @@
 package com.example.test3;
 
+import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -49,7 +50,7 @@ public class Accueil {
         //ferme la page login
         HelloApplication.getLoginPage().close();
         //chargerBien(0, 10);
-        Biens.getItems().addAll(chargerBien(0, 10));
+        Biens.getItems().addAll(chargerBien(0, 600));
         champid.setCellValueFactory(new PropertyValueFactory<Bien, Integer>("id"));
         colonneLibre.setCellValueFactory(new PropertyValueFactory<Bien, Integer>("libre"));
         colonneRue.setCellValueFactory(new PropertyValueFactory<Bien, String>("rue"));
@@ -66,14 +67,21 @@ public class Accueil {
         txtAnnee.setDisable(wanted);
         txtPrix.setDisable(wanted);
     }
+    @FXML
+    private void refresh(ActionEvent actionEvent) {
+        toggleTxtFields(true);
+        Biens.getItems().clear();
+        Biens.getItems().setAll(chargerBien(0, 600));
+        Biens.refresh();
+        gererPieces.setDisable(true);
+        bouttonEdit.setDisable(true);
+    }
 
 
     @FXML
     public void voirBien() {
         Bien leBien = Biens.getSelectionModel().getSelectedItem();
         leBien.chargerPieces();
-        //leBien.chargerMeubles();
-        //champid.setText(String.valueOf(leBien.getId()));
         txtAdrr.setText(leBien.getRue());
         txtVille.setText(leBien.getVille());
         txtCP.setText(leBien.getCp());
@@ -121,7 +129,15 @@ public class Accueil {
     public static Bien getBienChoisis() {
         return leBienChoisis;
     }
-
+    @FXML
+    public void onClickNouveauBien(ActionEvent actionEvent) throws IOException {
+        Stage newWindow = new Stage();
+        FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("nouveauBien.fxml"));
+        Scene scene = new Scene(fxmlLoader.load(), 600, 500);
+        newWindow.setScene(scene);
+        newWindow.setResizable(false);
+        newWindow.show();
+    }
 
 
     public ArrayList<Bien> chargerBien(int begin, int end) {
@@ -129,17 +145,18 @@ public class Accueil {
         ArrayList<Bien> lBiens = new ArrayList<>();
         try {
             Connection connection = bddcredentials.getConnection();
-            //SELECT *, count(pieces.id) as nbPieces FROM `biens` INNER JOIN pieces ON pieces.id_biens = biens.id GROUP BY biens.id LIMIT 0, 10
-            PreparedStatement ps = connection.prepareStatement("SELECT *, count(pieces.id) as nbPieces FROM `biens` INNER JOIN pieces ON pieces.id_biens = biens.id GROUP BY biens.id LIMIT ?, ? ");
-            ps.setInt(1, begin);
-            ps.setInt(2, end);
+            //SELECT *, count(pieces.id) as nbPieces FROM `biens` INNER JOIN pieces ON pieces.id_biens = biens.id GROUP BY biens.id LIMIT 0, 1
+            //Limite désactivé, pagnination non réalisée
+            PreparedStatement ps = connection.prepareStatement("SELECT * FROM `biens` GROUP BY biens.id");
+            //LIMIT ?, ?
+            //ps.setInt(1, begin);
+            //ps.setInt(2, end);
             ResultSet rs = ps.executeQuery();
 
             while (rs.next()) {
                 //public biens(int id, String rue, String cp, String ville, float prix, int anneeConstru, String description, boolean libre)
                 Bien bienEnChargement = new Bien(rs.getInt("id") , rs.getString("rue"), rs.getString("cp"), rs.getString("Ville"),
                         rs.getFloat("prix"), rs.getDate("anneeConstru"), rs.getString("Description"), rs.getBoolean("libre"));
-                //System.out.println(bienEnChargement.getId());
                 lBiens.add(bienEnChargement);
 
             }

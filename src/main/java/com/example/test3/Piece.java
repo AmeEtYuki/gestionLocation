@@ -78,8 +78,6 @@ public class Piece {
     public void ajouterMeubles(String libelle){
         DatabaseAccess bdd = new DatabaseAccess();
         try{
-            //Si tu veux tu peux descendre les valeurs vers le bas, aussi, id_typeEquipement je pense qu'on va le virer, c'était pas une bonne idée
-            //de ma pars. Mais on en a besoin pour l'instant, force le à 1 stuv)
             Connection co = bdd.getConnection();
             PreparedStatement ps = co.prepareStatement("INSERT into equipements (libelle, `equipements`.`id_pieces`) values (?, ?)", new String[]{"id"});
             ps.setString(1, libelle);

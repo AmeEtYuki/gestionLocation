@@ -138,10 +138,9 @@ public class Bien {
     public void nouveauBien() {
         //new String[]{"id"} pour récup le dernier ID généré, à rajouter après la requête
         //PreparedStagement p = ....(sql,new String[]{"id"})
-        //Et faudra inséré l'id dans la classe dcp
         try{
             Connection c = new DatabaseAccess().getConnection();
-            PreparedStatement p = c.prepareStatement("INSERT into biens (rue, cp, ville, prix, anneeConstru, description, libre) values(?, ?, ?, ?, ?, ?, ?)", new String[]{"id"});
+            PreparedStatement p = c.prepareStatement("INSERT into biens (rue, cp, ville, prix, anneeConstru, description, libre) values (?, ?, ?, ?, ?, ?, ?)", new String[]{"id"});
             p.setString(1, this.rue);
             p.setString(2, this.cp);
             p.setString(3, this.ville);
@@ -151,6 +150,7 @@ public class Bien {
             p.setBoolean(7, this.libre);
             p.executeUpdate();
             ResultSet rs = p.getGeneratedKeys();
+            rs.next();
             this.id = rs.getInt(1);
             c.close();
 
@@ -169,10 +169,7 @@ public class Bien {
             p.setFloat(1, surface);
             p.setString(2, libelle);
             p.setInt(3, this.id);
-            //p.RETURN_GENERATED_KEYS;
             p.executeUpdate();
-            //prest.executeUpdate(query, PreparedStatement.RETURN_GENERATED_KEYS); Throws an error
-            //prest.executeQuery(); Throws an error
             ResultSet rs = p.getGeneratedKeys();
 
             if(rs.next())
@@ -210,11 +207,6 @@ public class Bien {
         }
     }
 
-    //j'vais retirer les truc en rapport avec Equipement ici, comme c'est référé par pièce dans la bdd, après j'aurais
-    //pus faire une fonction qui charge tout les meubles de chaques pièces mais ça aurais fait un carnage XD
-    //créé une fonction pour modifier les informations du bien (description, adresse, ville, code postal, ...)
-    //rajouter dans biens, une méthode permettant de charger tout les meubles d'un bien spécifique.
-
     public void chargerPieces(){
         pieces.clear();
         DatabaseAccess bdd = new DatabaseAccess();
@@ -234,23 +226,6 @@ public class Bien {
     public void chargernbPieces() {
         chargerPieces();
     }
-    /*public void chargerMeubles(int piece) {
-        DatabaseAccess bdd = new DatabaseAccess();
-        try{
-            Connection co = bdd.getConnection();
-            PreparedStatement ps = co.prepareStatement("SELECT * from equipements WHERE id_pieces=?");
-            ps.setInt(1, this.id);
-            ResultSet rs = ps.executeQuery();
-            while(rs.next()){
-                //public Equipement(int id, String type, String libelle, int id_typeEquipement, int id_pieces)
-                equipements.add(new Equipement(rs.getInt("id"), rs.getString("libelle"), rs.getString("id_pieces"), rs.getInt("id_typeEquipement"), rs.getInt("id_pieces")));
-            }
-            co.close();
-        } catch (SQLException e) {
-            throw new RuntimeException(e);
-        }
-
-    }*/
 
     @Override
     public String toString() {

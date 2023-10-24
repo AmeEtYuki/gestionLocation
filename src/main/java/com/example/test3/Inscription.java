@@ -43,24 +43,6 @@ public class Inscription {
             ps.setString(2, crypt);
             boolean resultat = ps.execute();
             HelloController.afficherAcceuil();
-            /*if(resultat.next()){
-                if(BCrypt.checkpw(crypt, resultat.getString(2))){
-                    resultat.close();
-                    Stage newWindow = new Stage();
-                    FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("accueil.fxml"));
-                    Scene scene = new Scene(fxmlLoader.load(), 500, 340);
-                    newWindow.setScene(scene);
-                    newWindow.show();
-                }*/
-            /*Stage newWindow = new Stage();
-            FXMLLoader fxmlLoader = new FXMLLoader(HelloApplication.class.getResource("accueil.fxml"));
-            Scene scene = new Scene(fxmlLoader.load(), 500, 340);
-            newWindow.setScene(scene);
-            newWindow.show();*/
-
-
-
-
             con.close();
         }
         catch (SQLException e){

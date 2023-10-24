@@ -46,21 +46,6 @@ public class Equipement {
         }
     }
 
-
-    /*public void addMeuble() {
-        DatabaseAccess bdd = new DatabaseAccess();
-        try {
-            Connection co = bdd.getConnection();
-            PreparedStatement ps = co.prepareStatement("INSERT INTO equipements (libelle, id_pieces) VALUES (?, ?)");
-            ps.setString(1, this.libelle);
-            ps.setInt(2, this.id_pieces);
-            int rs = ps.executeUpdate();
-            ResultSet id = ps.getGeneratedKeys();
-
-        }catch (SQLException e){
-            throw new RuntimeException(e);
-        }
-    }*/
     //Modification d'un meuble abandonnées
     public void modMeuble(){
         DatabaseAccess bdd = new DatabaseAccess();
